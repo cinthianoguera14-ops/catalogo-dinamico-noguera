@@ -94,26 +94,15 @@
 
     <script>
 
-        // =====================================================
         // URL DEL BACKEND
-        // =====================================================
-
         const API_URL = "https://script.google.com/macros/s/AKfycbz76t7xI7eKH33DgYYq-VFm9BcmN6WUTIIW6I9LPwaIpfemSkwg-mpAaWpaB-EHzJlfHQ/exec";
 
 
-        // =====================================================
         // NÚMERO DE WHATSAPP
-        // Argentina + código de área + número
-        // Sin +, espacios ni guiones
-        // =====================================================
-
         const WHATSAPP = "5492984617668";
 
 
-        // =====================================================
-        // LEER LOS DATOS DEL BACKEND
-        // =====================================================
-
+        // CONECTAR CON GOOGLE APPS SCRIPT
         fetch(API_URL)
 
             .then(function (respuesta) {
@@ -127,10 +116,7 @@
             })
 
 
-            // =====================================================
             // MOSTRAR LOS SERVICIOS
-            // =====================================================
-
             .then(function (servicios) {
 
                 const contenedor =
@@ -141,6 +127,101 @@
 
                 mensaje.style.display = "none";
 
+
+                servicios.forEach(function (servicio) {
+
+                    // FORMATEAR PRECIO
+                    const precio =
+                        Number(servicio.precio)
+                        .toLocaleString("es-AR");
+
+
+                    // MENSAJE DE WHATSAPP
+                    const mensajeWhatsApp =
+                        "Hola, quisiera consultar por el servicio "
+                        + servicio.nombre;
+
+
+                    // ENLACE DE WHATSAPP
+                    const enlaceWhatsApp =
+                        "https://wa.me/"
+                        + WHATSAPP
+                        + "?text="
+                        + encodeURIComponent(mensajeWhatsApp);
+
+
+                    // CREAR TARJETA
+                    const tarjeta = `
+
+                        <div class="col-12 col-md-6 col-lg-4">
+
+                            <div class="card tarjeta h-100">
+
+                                <img
+                                    src="${servicio.imagen}"
+                                    class="card-img-top"
+                                    alt="${servicio.nombre}"
+                                >
+
+                                <div class="card-body d-flex flex-column">
+
+                                    <h2 class="h4 card-title">
+                                        ${servicio.nombre}
+                                    </h2>
+
+                                    <p class="card-text">
+                                        ${servicio.descripcion}
+                                    </p>
+
+                                    <p class="precio mt-auto">
+                                        $${precio}
+                                    </p>
+
+                                    <a
+                                        href="${enlaceWhatsApp}"
+                                        target="_blank"
+                                        class="btn btn-success"
+                                    >
+                                        Consultar
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    contenedor.innerHTML += tarjeta;
+
+                });
+
+            })
+
+
+            // SI HAY UN ERROR
+            .catch(function (error) {
+
+                const mensaje =
+                    document.getElementById("mensaje");
+
+                mensaje.className = "error";
+
+                mensaje.innerHTML =
+                    "No se pudieron cargar los servicios. " +
+                    "Verificá la conexión con el backend.";
+
+                console.error(error);
+
+            });
+
+    </script>
+
+</body>
+
+</html>
 
                 servicios.forEach(function (servicio) {
 
