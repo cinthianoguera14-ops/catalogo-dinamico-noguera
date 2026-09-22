@@ -73,6 +73,7 @@
     <header class="encabezado">
         <div class="container">
             <h1>Servicios de Marketing Digital</h1>
+
             <p class="lead">
                 Soluciones digitales para hacer crecer tu empresa
             </p>
@@ -96,7 +97,6 @@
 
         // =====================================================
         // URL DEL BACKEND
-        // REEMPLAZAR POR TU URL QUE TERMINA EN /exec
         // =====================================================
 
         const API_URL = "https://script.google.com/macros/s/AKfycbz76t7xI7eKH33DgYYq-VFm9BcmN6WUTIIW6I9LPwaIpfemSkwg-mpAaWpaB-EHzJlfHQ/exec";
@@ -104,12 +104,11 @@
 
         // =====================================================
         // NÚMERO DE WHATSAPP
-        // Reemplazar por tu número.
-        // Formato: 549 + código de área + número
-        // Sin +, espacios ni guiones.
+        // Argentina + código de área + número
+        // Sin +, espacios ni guiones
         // =====================================================
 
-        const WHATSAPP = "549XXXXXXXXXX";
+        const WHATSAPP = "5492984617668";
 
 
         // =====================================================
@@ -135,104 +134,15 @@
 
             .then(function (servicios) {
 
-                const contenedor = document.getElementById("servicios");
-                const mensaje = document.getElementById("mensaje");
+                const contenedor =
+                    document.getElementById("servicios");
+
+                const mensaje =
+                    document.getElementById("mensaje");
 
                 mensaje.style.display = "none";
 
 
                 servicios.forEach(function (servicio) {
-
-                    // Formatear el precio
-                    const precio = Number(servicio.precio)
-                        .toLocaleString("es-AR");
-
-
-                    // Mensaje que aparecerá en WhatsApp
-                    const mensajeWhatsApp =
-                        "Hola, quisiera consultar por el servicio "
-                        + servicio.nombre;
-
-
-                    const enlaceWhatsApp =
-                        "https://wa.me/"
-                        + WHATSAPP
-                        + "?text="
-                        + encodeURIComponent(mensajeWhatsApp);
-
-
-                    // Crear tarjeta
-                    const tarjeta = `
-
-                        <div class="col-12 col-md-6 col-lg-4">
-
-                            <div class="card tarjeta h-100">
-
-                                <img
-                                    src="${servicio.imagen}"
-                                    class="card-img-top"
-                                    alt="${servicio.nombre}"
-                                >
-
-                                <div class="card-body d-flex flex-column">
-
-                                    <h2 class="h4 card-title">
-                                        ${servicio.nombre}
-                                    </h2>
-
-                                    <p class="card-text">
-                                        ${servicio.descripcion}
-                                    </p>
-
-                                    <p class="precio mt-auto">
-                                        $${precio}
-                                    </p>
-
-                                    <a
-                                        href="${enlaceWhatsApp}"
-                                        target="_blank"
-                                        class="btn btn-success"
-                                    >
-                                        Consultar
-                                    </a>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-
-                    contenedor.innerHTML += tarjeta;
-
-                });
-
-            })
-
-
-            // =====================================================
-            // MANEJO DE ERRORES
-            // =====================================================
-
-            .catch(function (error) {
-
-                const mensaje = document.getElementById("mensaje");
-
-                mensaje.className = "error";
-
-                mensaje.innerHTML =
-                    "No se pudieron cargar los servicios. " +
-                    "Verificá la URL del backend.";
-
-                console.error(error);
-
-            });
-
-    </script>
-
-</body>
-
-</html>
 ```
+
